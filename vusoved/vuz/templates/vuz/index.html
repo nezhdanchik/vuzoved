@@ -1,0 +1,10 @@
+{% extends 'vuz\base.html' %}
+
+{% block content %}
+<h2>Список вузов:</h2>
+<ul>
+    {% for university in universities %}
+        <li><a href="{% url 'university' university.slug %}">{{ university.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

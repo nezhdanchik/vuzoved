@@ -1,0 +1,33 @@
+{% extends 'vuz\base.html' %}
+
+{% block content %}
+<h1>{{ university.name }}</h1>
+<h2>Описание</h2>
+{% if university.rating %}
+    <p><b>Рейтинг</b>: {{ university.rating }}</p>
+{% else %}
+    <p><b>Рейтинг</b> пока не определён</p>
+{% endif %}
+<p>{{ university.description }}</p>
+
+<h2>Отзывы</h2>
+{% if feedbacks %}
+    {% for feedback in feedbacks %}
+        <div>
+            <b>{{ feedback.user }}</b> - Оценка: {{ feedback.rate }}
+            <p>{{ feedback.body }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Пока нет отзывов</p>
+{% endif %}
+
+<h3>Написать свой отзыв:</h3>
+<form action="{% url 'university' university.slug %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}

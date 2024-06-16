@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вузовед</title>
+</head>
+<body>
+
+<a href="{% url 'index' %}">Главная</a>
+<a href="{% url 'about' %}">О сайте</a>
+<a href="{% url 'about' %}">Контакты</a>
+
+{%block content%}{%endblock%}
+
+<p>@Все права защищены</p>
+</body>
+</html>
