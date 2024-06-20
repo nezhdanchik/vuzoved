@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+<!--убираем кнопки Войти/Выйти из аккаунта-->
+{% block log_button %}{% endblock %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+    <p>Вы вышли из профиля. Хотите <a href="{% url 'login' %}">Войти</a>?</p>
+{% else %}
+    <p>Вход выполнен. <b>Как вы сюда попали вообще?</b> <a href="{% url 'index' %}">На главную</a></p>
+{% endif %}
+
+{% endblock %}

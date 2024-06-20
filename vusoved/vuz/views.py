@@ -11,18 +11,27 @@ def index(request):
 
 def university(request, slug_university):
 
+    unvst = get_object_or_404(University, slug=slug_university)
+    feedbacks = unvst.feedbacks.all()
+
+    test_user = User.objects.get(name='Кристина')
+
     if request.method == "POST":
         form = FeedbackForm(request.POST)
         print(request)
         if form.is_valid():
             print(form.cleaned_data)
+            new_feedback = form.save(commit=False)
+            new_feedback.university = unvst
+            new_feedback.user = test_user
+            new_feedback.save()
+            print(f'{request.POST=}')
         else:
             print('form is not valid')
-    else:
-        form = FeedbackForm()
 
-    unvst = get_object_or_404(University, slug=slug_university)
-    feedbacks = unvst.feedbacks.all()
+    form = FeedbackForm()
+
+
     context = {
         'university': unvst,
         'feedbacks': feedbacks,

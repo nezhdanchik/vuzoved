@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<!--убираем кнопки Войти/Выйти из аккаунта-->
+{% block log_button %}{% endblock %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Войти">
+    </form>
+
+    {% if success %}
+    <p>Ура, вы вошли!!!</p>
+    {% elif success is not None %}
+    <p>Вы ввели чото не то</p>
+    {% endif %}
+
+{% else %}
+    <p>Вход уже выполнен. <a href="{% url 'index' %}">На главную</a></p>
+{% endif %}
+
+{% endblock %}

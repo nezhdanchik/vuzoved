@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-
+from django.urls import reverse
 
 # Create your models here.
 class University(models.Model):
@@ -12,11 +12,13 @@ class University(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+    def get_absolute_url(self):
+        return reverse('university', kwargs={'slug_university': self.slug})
 
 class Feedback(models.Model):
-    body = models.TextField()
+    body = models.TextField(verbose_name='Текст отзыва')
     rate_choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10))
-    rate = models.IntegerField(choices=rate_choices)
+    rate = models.IntegerField(choices=rate_choices, verbose_name='Оценка')
     time_created = models.DateTimeField(auto_now_add=True)
     university = models.ForeignKey('University', on_delete=models.CASCADE, related_name='feedbacks')
     user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='feedbacks')
@@ -27,7 +29,12 @@ class Feedback(models.Model):
 
 class User(models.Model):
     name = models.CharField(max_length=255)
-    role = models.CharField(max_length=255)
+    role_choices = {
+        'student': 'Студент',
+        'moderator': 'Модератор',
+        'applicant': 'Абитуриент',
+    }
+    role = models.CharField(max_length=255, choices=role_choices)
     points = models.IntegerField(default=0)
 
     def __str__(self):
