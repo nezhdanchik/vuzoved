@@ -6,8 +6,10 @@ from django.urls import reverse
 class University(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
-    rating = models.IntegerField(blank=True, null=True)
+    rating = models.DecimalField(blank=True, null=True, max_digits=3, decimal_places=1)
     description = models.TextField(blank=True, null=True)
+    #image хранит ссылку на викифото
+    wikipage_url = models.CharField(max_length=512, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -41,8 +43,3 @@ class User(models.Model):
         return f'{self.name}'
 
 
-from transliterate import translit
-
-
-def convert_russian_to_slug(s: str):
-    return slugify(translit(s, reversed=True))

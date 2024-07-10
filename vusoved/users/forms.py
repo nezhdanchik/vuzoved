@@ -1,7 +1,8 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 
-class LoginUserForm(forms.Form):
+class LoginUserForm(AuthenticationForm):
     username = forms.CharField(
         label="Имя:",
         min_length=3,
@@ -12,5 +13,5 @@ class LoginUserForm(forms.Form):
         label='Пароль:',
         min_length=5,
         max_length=50,
-        widget=forms.PasswordInput(attrs={'placeholder': 'Ваше имя:'})
+        widget=forms.PasswordInput(attrs={'placeholder': 'Ваш пароль:'})
     )

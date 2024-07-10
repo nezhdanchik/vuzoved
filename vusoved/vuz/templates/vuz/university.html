@@ -3,19 +3,28 @@
 
 {% block content %}
 <h1>{{ university.name }}</h1>
+
 <h2>Описание</h2>
 {% if university.rating %}
     <p><b>Рейтинг</b>: {{ university.rating }}</p>
 {% else %}
     <p><b>Рейтинг</b> пока не определён</p>
 {% endif %}
-<p>{{ university.description }}</p>
+
+{% autoescape off %}
+    <p>{{ university.description }}</p>
+{% endautoescape %}
+
+<a href="{{ university.wikipage_url }}" target="_blank">Страница на Википедии</a>
+
+<p>#здесь должно быть выпадающее меню для выбора факультета</p>
+<p>#здесь краткая информация по факультету</p>
 
 <h2>Отзывы</h2>
 {% if feedbacks %}
     {% for feedback in feedbacks %}
         <div>
-            <b>{{ feedback.user }}</b> - Оценка: {{ feedback.rate }}
+            <b>{{ feedback.user }}</b> | Оценка: {{ feedback.rate }} | {{ feedback.time_created|date:"H:i j E" }}
             <p>{{ feedback.body }}</p>
         </div>
     {% endfor %}

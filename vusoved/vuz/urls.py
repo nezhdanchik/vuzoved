@@ -5,8 +5,7 @@ from . import views
 # app_name = 'vuz'
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("university/<slug:slug_university>/", views.university, name="university", ),
-    path("about/", views.about, name="about"),
-    path("name/", views.get_name, name="name"),
+    path("", views.IndexView.as_view(), name="index"),
+    path("university/<slug:slug_university>/", views.UniversityView.as_view(), name="university"),
+    path("about/", views.AboutView.as_view(), name="about"),
 ]
