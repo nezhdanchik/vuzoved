@@ -32,16 +32,20 @@
     <p>Пока нет отзывов</p>
 {% endif %}
 
-{% if user.is_authenticated %}
-<h3>Написать свой отзыв:</h3>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Отправить">
-</form>
-{% else %}
-    <h3><a href="{% url 'login'  university.get_absolute_url|urlencode:''  %}">Войдите</a>, чтобы оставить свой отзыв.</h3>
-{% endif %}
+<input type="button" value="Написать отзыв" onClick="location.href='{% url 'feedback' university.slug %}'">
+
+{% comment %}
+    {% if user.is_authenticated %}
+    <h3>Написать свой отзыв:</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Отправить">
+    </form>
+    {% else %}
+        <h3><a href="{% url 'login'  university.get_absolute_url|urlencode:''  %}">Войдите</a>, чтобы оставить свой отзыв.</h3>
+    {% endif %}
+{% endcomment %}
 
 
 {% endblock %}

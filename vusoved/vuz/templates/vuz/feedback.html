@@ -1,0 +1,10 @@
+<input type=button value="К странице ВУЗа"
+       onClick="location.href='{% url 'university' request.resolver_match.kwargs.slug_university %}'">
+
+
+<h2>Напишите свой отзыв</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Отправить">
+</form>
