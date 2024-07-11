@@ -12,6 +12,8 @@
         <input type="submit" value="Войти">
     </form>
 
+<p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+
     {% if success %}
     <p>Ура, вы вошли!!!</p>
     {% elif success is not None %}

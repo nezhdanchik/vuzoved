@@ -5,7 +5,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 import urllib
 
-from .forms import LoginUserForm
+from django.views.generic import TemplateView
+
+from .forms import LoginUserForm, RegisterUserForm
 
 
 # Create your views here.
@@ -32,6 +34,26 @@ from .forms import LoginUserForm
 #
 #     return render(request, 'users/login.html', context=data)
 
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            cd = form.cleaned_data
+            user.set_password(cd['password'])
+            user.save()
+            return redirect(reverse('register_success'))
+        else:
+            print('form is not valid')
+    else:
+        form = RegisterUserForm()
+    data = {
+        'form': form
+    }
+    return render(request, 'users/register.html', context=data)
+
+class RegisterSuccessView(TemplateView):
+    template_name = 'users/register_success.html'
 
 class LoginUser(LoginView):
     template_name = 'users/login.html'
